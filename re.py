@@ -1,10 +1,39 @@
-import pickle
-from Vol import *
-a1 = Aeroport("Clermont", 001, [("Lyon"),("Toulouse"),("Lille")])
-a2 = Aeroport("Lyon", 002, [("Nice"),("Paris"),("Agde")])
-t1=Time(2015, 12,10,12,0)
-t2=Time(2015, 12,10,15,30)
-vol = Vol(a1,a2,t1(),t2(),"1234567890")
-with open('donnees', 'wb') as fichier:
-    mon_pickler = pickle.Pickler(fichier)
-    mon_pickler.dump(vol)
+class A(object):
+    def __init__(self, B):
+        self._B = None
+    def addB(self, B):
+        if(B is None):
+            if(B.getA is None):
+                B.getA.setB(None)
+            self.setB(B)
+            B.setA(this)
+    @property
+    def getB(self):
+        return self._B
+    @property
+    def setB(self, B):
+        self._B = B
+    def __call__(self):
+        pass
+    def __str__(self):
+        pass
+
+class B(object):
+    def __init__(self, A):
+        self._A = None
+    def addA(self):
+        if(A is None):
+            if(A.getB is None):
+                A.getB.setA(None)
+            self.setA(A)
+            A.setB(this)
+    @property
+    def getA(self):
+        return self._A
+    @property
+    def setA(self, B):
+        self._A = A
+    def __call__(self):
+        pass
+    def __str__(self):
+        pass

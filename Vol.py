@@ -28,6 +28,7 @@ class Vol(object) : #Definiton classe Vol
 		self._aeroportDepart = aeroportDepart
 		self._aeroportArrivee = aeroportArrivee
 		self._etatVol = True #Le vol est de base ouvert aux reservation
+		self._trajet = None
 		try:
 			self._dateDepart = dateDepart
 			self._dateArrivee = dateArrivee
