@@ -5,10 +5,11 @@ import os
 import pickle
 
 class NumeroVol: #Definiton class Numero Vol
+	"""Class permettant d'attribuer un numero de vol unique a chaque vol"""
 	def __init__(self, numero):
 		try:
 			self._numero = numero
-			if re.match(r"^[a-zA-Z0-9_]{10}$", numero) == None:
+			if re.match(r"^[a-zA-Z0-9_]{10}$", numero) == None: #Expression reguliere de la forme 10 carractere aplhanumerique obligatoire
 				raise ValueError("le numero saisi est invalide")
 		except ValueError:
 			print("Erreur : La valeur saisie est invalide(le numero doit contenir dix carracteres de type apha numerique)")
@@ -23,6 +24,7 @@ class NumeroVol: #Definiton class Numero Vol
 		return "Numero {}".format(self._numero)
 	numero=property(_get_numero)
 class Vol(object) : #Definiton classe Vol
+	"""La class vol permet de creer un vol avec un numero de vol de type NumeroVol"""
 	def __init__(self, aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, numeroVol) :
 		self._numeroVol = numeroVol
 		self._aeroportDepart = aeroportDepart
@@ -59,6 +61,7 @@ class Vol(object) : #Definiton classe Vol
 	numeroVol=property(_get_numeroVol)
 	etatVol=property(_get_etatVol)
 class CompagnieAerienne(object) : #Definiton classe CompagnieAerienne
+	"""La classe companie peut creer ces propres vols et ouvrir/fermer une reservation"""
 	def __init__(self, nom) :
 		self._nom = nom
 		self._listeVols = []
@@ -75,12 +78,13 @@ class CompagnieAerienne(object) : #Definiton classe CompagnieAerienne
 			raise
 		vol = Vol(aeroportDepart, aeroportArrivee, dateDepart, dateArrivee,num())
 		self._listeVols.append(vol)
+		#Enregistrement des vols dans un fichier qui ce nomme comme le nom de la companie
 		with open(self._nom, 'wb') as fichier:
 			mon_pickler = pickle.Pickler(fichier)
 			mon_pickler.dump(vol)
 
 		print ("Vol numero :  %s ajoute a la companie : %s" %(num.numero, self._nom))
-	def chercherVol(self, numeroVol):
+	def chercherVol(self, numeroVol):#Permet de chercher un vol dans la liste de la companie et de savoir si il existe ou non
 		num = NumeroVol(numeroVol)
 		try:
 			for vol in self._listeVols:
@@ -123,6 +127,7 @@ class Time(object) : #Definition de notre objet time qui herite de l'objet time 
 	def __str__(self):
 		return str(self._datetime.strftime("%a, %d %b %Y %H:%M:%S +0000"))
 class Trajet(object):
+	"""Un trajet est une liste de saut et un saut est une etape d'arrive et une etape de depart"""
 	def __init__(self, listeSauts) :
 		self._listeSauts = listeSauts
 	def __call__(self):
@@ -150,6 +155,7 @@ class Saut(object):
 	def __str__(self):
 		return "  Etape depart: {} \n  Etape arrivee: {}".format(self._etapeDepart, self._etapeArrivee)
 class Etape(object):
+	"""Une etape est une date et un aeroport"""
 	def __init__(self,date,aeroport) :
 		self._date = date
 		self._aeroport = aeroport

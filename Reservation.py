@@ -3,10 +3,11 @@ import re
 import datetime
 import pickle
 class Reference(object):
+    """La class Permet d'attibuer un numero des ref au client"""
     def __init__(self, reference):
         try:
             self._reference = reference
-            if re.match(r"^[a-zA-Z0-9_]{3}$", reference) == None:
+            if re.match(r"^[a-zA-Z0-9_]{3}$", reference) == None: #REGEX de 3 carractere aplhanumerique
                 raise ValueError("la reference saisi est invalide")
         except ValueError:
             print("Erreur : La valeur saisie est invalide(la reference doit contenir 3 carracteres de type apha numerique)")
@@ -21,6 +22,7 @@ class Reference(object):
     def __str__(self):
         return "{}".format(self._reference)
 class Client(object):
+    """Le client contient une liste de reservation pour des passagers"""
     def __init__(self,nom, prenom, adresse, ref) :
         self._nom = nom
         self._prenom = prenom
@@ -44,6 +46,7 @@ class Client(object):
     def __str__(self):
         return "Nom {}\n Prenom {}\n Adresse {}\n Reference {}".format(self._nom, self._prenom, self._adresse, self._ref)
 class Reservation(object):
+    """La class reservation contient un client un passager et un numero"""
     def __init__(self, date, numero, passager, numeroVol, companie) :
         self._date = date
         self._numero = numero
